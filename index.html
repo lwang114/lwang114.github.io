@@ -1,48 +1,63 @@
 <!DOCTYPE html>
 <section>
-  <h1>Speech-to-image Blog</h1>  
+  <h1>Liming Wang</h1>   
 </section>
 
 <section>
-  <h3>7.28.2018</h3>
-  <p>I extracted the bounding boxes of flickr8k to see its quality and see many bounding boxes seem to contain too much irrelevant regions for the objects. As can be seen below, the picture "helmet" contains almost the same region as the region for 'rider', with an intersection-over-union (IoU) of more than 0.6. Similar for the region for "ball". This image should not be used at the initial training of the model. This can be done by, for instance, remove a region if its IoU score is above a threshold, the region for less likely words will be removed when there is two overlapping regions. The frequency information can be easily found in the words' label, which are smaller for high frequency words,     
-  </p>
-  <img src="7-28-2018/helmet.png" alt="Helmet Bounding Boxes">
-  <img src="7-28-2018/ball.png" alt="Ball">
-
+  <img src="liming.jpg" 
+  width="350" height="500" alt="Liming">
+  <h3>Welcome!</h3> 
   <p>
-  In the past week, I have tried a new model that unlike the previous models, used bounding boxes information to classify each region before used to match corresponding speech sound. The result is suprisingly worse than the model that I used without using any bounding boxes. 
+  I'm Liming, a MS student in ECE at University of Illinois, Urbana-Champaign (UIUC). 
+  I am a proud member of the UI Statistical Speech Technology group led by Prof. Mark Hasegawa-Johnson.
+  Current research interest includes:
+  <ul>
+    <li> Nonparametric and hierarchical Bayesian inference
+    <li> Mathematical model of multimodal language acquisition
+    <li> Statistical signal processing for biological data
+    <li> Machine translation 
+  </ul>
   </p>
-  
-  <h3>7.29.2018</h3>
-  <p> Besides the "ambiguity of region" problem described yesterday, there is another problem when it comes to concept labeling, which I call "overspecification". Human annotator tends to refer to a region as specifically as they can. For example, a man riding on a bike with a helmet will be refered to as "cyclist" or "biker", but not just "man" and "bike". However, the latter annotation is more desirable for concept labeling since it shows the connection between "biker" and human. One way to solve the issue may be to merge the two concepts into one based on some rules. For example, whenever the machine sees a suffix "-er" "-or" or "-ist" it automatically replaces the label with sexless noun "person". But that only solves this particular type of overspecification. How do we assign labels to such concepts as "adult", "person" and "woman"? Simply assigning one label to each of them will not work well because it simply dumps the relations between these overlapping concepts: person can be woman and woman is an adult. However, only assigning one label "person" to all three seems a bit oversimplified. An ambiguity-free representation will contian three binary features: human, gender and age. The concepts can be then organized in a hierarchical manner as a tree with each branch having a binary code based on the features. However, we can easily imagine object that has a different hierarchical representation --- much deeper or shallower, like for example, different types of cars. But in flickr8k, most of these overspecified concepts are persons, so it is safe to ignore other such concepts and hand-crafted some rules to give label to the persons.     
-  </p>
-
-  <h3>8.17.2018</h3>
-  <p>
-  This week I have been thinking about various ways to train a speech-to-image retriever that can map a caption "cluster" to a image "cluster". In other words, I tried to allow caption to map to multiple images and vice versa. Since the max-margin loss commonly used for one-to-one mapping no longer applies in this many-to-many scenario, a new loss is needed. One loss I used was the L1 distance between the matchness matrix and the similarity matrix:
-
-The loss does not converge and the convergence curve is shown below in Fig. (8-17-1).
-
-The reason for the loss to vanish to zero is most likely due to the bad initialization: if the similarity for each matched pair and mismatched pair are roughly equal, the gradients will be almost zero and be likely to stop updating too early. Further, there are too many terms in the loss that forces to become zero (most of the off-diagonal terms O(n^2)) and the neural network is notoriously easy to overlook the few nonzero terms and force every term to become zero, an effect similar to the issue with unbalanced dataset. One way to fix it may be to introduce a penalty term or to reduce the amount of zero terms by randomly sampling a few negative examples rather than using all of them.
-
-Another issue I encounter is the insufficiency and imbalance of data in flickr8k. The word recognizer keep on predicting words based on how frequent they appear rather than more essential features in it. I added a one over frequency weights to each term in the categorical cross-entropy but the loss still displays similar behaviour and the hinge loss is overfitting as before. The convergence curve is shown below in Fig. (8-17-2). Now I am trying to pretrain the word recognizer on the most frequent 1000 WSJ words. I also need a way to monitor the defecting behaviors of the neural network by monitoring the AUC, which tells how effective the network is to both recognize positive examples and reject false positives. 
-  </p>
-  <figure>
-  <img src="8-17-2018/8-27-2018-mmloss.png" alt='Many-to-Many Loss'>
-  <figcaption>Eq. (8-17-1)</figcaption> 
-  </figure>
-  
-  <figure>
-  <img src="8-17-2018/roc_1.png" alt='Rate of Convergence MM Loss'>
-  <figcaption>Fig. (8-17-1) Rate of Convergence MM Loss</figcaption>
-  </figure>
-
-  <figure>
-  <img src="8-17-2018/roc_2.png" alt='Rate of Convergence Weighted CrossEnt'>
-  <figcaption>Fig. (8-17-2) Rate of Convergence Weighted CrossEnt</figcaption>
-  </figure>
-
-
 </section>
 
+<section>
+  <h2>Publications</h2>
+    <h3>Journal Paper</h3>
+      <ul>
+        <li> Liming Wang, Mark Hasegawa-Johnson. Multimodal Word Discovery with Spoken Descriptions
+        and Visual Concepts. Submitted to Transactions on Audio, Speech and Language Processing.</li> 
+      </ul>
+    <h3>Conference Paper</h3>
+      <ul>
+        <li> Liming Wang, Mark Hasegawa-Johnson. Multimodal Word Discovery with Phone Sequence and
+        Image Concepts. <i>Interspeech 2019</i> (oral presentation).</li>
+        <li> Graham Neubig et al., XNMT: The eXtensible Neural Machine Translation Toolkit. <i>Proceedings
+        of the 13th Conference of the Association for Machine Translation in the America</i>, 2018. </li>
+        <li> Odette Scharenborg et al., Linguistic Unit Discovery from Multimodal Inputs in Unwritten 
+        Languages: Summary of the "Speaking Rosetta" JSALT 2017 Workshop. <i>International Conference
+        on Acoustics, Speech and Signal Processing</i>, 2017.
+      <ul>
+</section>
+
+<section>
+  <h2>Projects and Codes</h2>
+    <ul>
+      <li> Multimodal word discovery: <a href="https://github.com/lwang114/MultimodalWordDiscovery">code</a></li>
+      <li> Math word problem solver: <a href="https://github.com/wangxr14/Algebraic-Word-Problem-Solver">code and report</a></li>
+      <li> Interior point method applied to SVM: </li>
+      <li> Graphical Lasso: <a href="https://github.com/lwang114/GraphicalLasso/">code</a></li>
+      <li> Regulatory network inference: </li>
+      <li> Diffusion map for multimodal data: </li>
+    <ul>
+</section>
+
+<section>
+  <h2> Hobbies </h2>
+  <ul>
+    <li> Play tennis (member of the tennis club), jogging and juggling 
+    <li> Play flute
+    <li> My favourite Podcasts: 
+    <a href="https://www.sciencefriday.com">Science Friday</a>
+    <a href="https://www.thetalkingmachines.com">Talking Machines</a>
+  </ul>
+</section>
