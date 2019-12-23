@@ -1,0 +1,28 @@
+
+  <h3>8.17.2018</h3>
+  <p>
+  This week I have been thinking about various ways to train a speech-to-image retriever that can map a caption "cluster" to a image "cluster". In other words, I tried to allow caption to map to multiple images and vice versa. Since the max-margin loss commonly used for one-to-one mapping no longer applies in this many-to-many scenario, a new loss is needed. One loss I used was the L1 distance between the matchness matrix and the similarity matrix:
+
+The loss does not converge and the convergence curve is shown below in Fig. (8-17-1).
+
+The reason for the loss to vanish to zero is most likely due to the bad initialization: if the similarity for each matched pair and mismatched pair are roughly equal, the gradients will be almost zero and be likely to stop updating too early. Further, there are too many terms in the loss that forces to become zero (most of the off-diagonal terms O(n^2)) and the neural network is notoriously easy to overlook the few nonzero terms and force every term to become zero, an effect similar to the issue with unbalanced dataset. One way to fix it may be to introduce a penalty term or to reduce the amount of zero terms by randomly sampling a few negative examples rather than using all of them.
+
+Another issue I encounter is the insufficiency and imbalance of data in flickr8k. The word recognizer keep on predicting words based on how frequent they appear rather than more essential features in it. I added a one over frequency weights to each term in the categorical cross-entropy but the loss still displays similar behaviour and the hinge loss is overfitting as before. The convergence curve is shown below in Fig. (8-17-2). Now I am trying to pretrain the word recognizer on the most frequent 1000 WSJ words. I also need a way to monitor the defecting behaviors of the neural network by monitoring the AUC, which tells how effective the network is to both recognize positive examples and reject false positives. 
+  </p>
+  <figure>
+  <img src="8-17-2018/8-27-2018-mmloss.png" alt='Many-to-Many Loss'>
+  <figcaption>Eq. (8-17-1)</figcaption> 
+  </figure>
+  
+  <figure>
+  <img src="8-17-2018/roc_1.png" alt='Rate of Convergence MM Loss'>
+  <figcaption>Fig. (8-17-1) Rate of Convergence MM Loss</figcaption>
+  </figure>
+
+  <figure>
+  <img src="8-17-2018/roc_2.png" alt='Rate of Convergence Weighted CrossEnt'>
+  <figcaption>Fig. (8-17-2) Rate of Convergence Weighted CrossEnt</figcaption>
+  </figure>
+
+
+
