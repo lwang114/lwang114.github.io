@@ -1,15 +1,55 @@
 <!DOCTYPE html>
-<section>
-  <h1>Liming Wang</h1>   
-</section>
+<html>
 
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;  
+}
+
+.column {
+  float: left;
+  width: 25%;
+  padding: 10px;
+}
+
+.centercolumn{
+  float: left;
+  width: 25%;
+  padding: 150px 0; 
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both; 
+}
+</style>
+</head>
+
+<body>
 <section>
-  <img src="images/liming.jpg" 
-  width="350" height="500" alt="Liming">
-  <h3>Welcome!</h3> 
+  <div class="row">
+    <div class="column">
+      <img src="images/liming.jpg" 
+      width="350" height="500" alt="Liming">
+    </div>
+    <div class="centercolumn">
+      <center>
+      <h1>Liming Wang</h1>
+      <p>
+      <b>Electrical and Computer Engineering<br>
+      University of Illinois, Urbana-Champaign</b><br>
+      <b>Email</b>: lwang114@illinois.edu <br>
+      <a href="https://github.com/lwang114">Github</a>
+      </p>
+      </center>
+    </div>
+  </div>
   <p>
-  I'm Liming, a second-year MS student in Electrical and Computer Engineering at University of Illinois, Urbana-Champaign (UIUC). 
-  I am a proud member of the UI Statistical Speech Technology group led by Prof. Mark Hasegawa-Johnson.
+  <h3>Welcome!</h3>
+  I'm a second-year MS student, and a proud member of the UI Statistical Speech Technology group led by Prof. Mark Hasegawa-Johnson.
   Current research interest includes:
   <ul>
     <li> Nonparametric and hierarchical Bayesian inference
@@ -25,12 +65,12 @@
     <h3>Journal Paper</h3>
       <ul>
         <li> Liming Wang, Mark Hasegawa-Johnson. Multimodal Word Discovery with Spoken Descriptions
-        and Visual Concepts. Submitted to Transactions on Audio, Speech and Language Processing.</li> 
+        and Visual Concepts. Submitted to Transactions on Audio, Speech and Language Processing. <a href="https://github.com/lwang114/TASLP_2019">paper</a></li> 
       </ul>
     <h3>Conference Paper</h3>
       <ul>
         <li> Liming Wang, Mark Hasegawa-Johnson. Multimodal Word Discovery with Phone Sequence and
-        Image Concepts. <i>Interspeech 2019</i> (oral presentation).</li>
+        Image Concepts. <i>Interspeech 2019</i> (oral presentation). <a href="https://www.isca-speech.org/archive/Interspeech_2019/pdfs/1487.pdf">paper</a> <a href="docs/interspeech_2019_presentation-sept-18.pdf">presentation</a></li>
         <li> Graham Neubig et al., XNMT: The eXtensible Neural Machine Translation Toolkit. <i>Proceedings
         of the 13th Conference of the Association for Machine Translation in the America</i>, 2018. </li>
         <li> Odette Scharenborg et al., Linguistic Unit Discovery from Multimodal Inputs in Unwritten 
@@ -44,7 +84,7 @@
     <ul>
       <li> Multimodal word discovery: <a href="https://github.com/lwang114/MultimodalWordDiscovery">code</a></li>
       <li> Math word problem solver: <a href="https://github.com/wangxr14/Algebraic-Word-Problem-Solver">code and report</a></li>
-      <li> Interior point method applied to SVM: 
+      <li> Interior point method applied to SVM: <a href="codes/svm.py">Download_code</a> <a href="codes/dataset.csv">dataset</a></li>
       <li> Graphical Lasso: <a href="https://github.com/lwang114/GraphicalLasso/">code</a></li>
       <li> Regulatory network inference: <a href="https://github.com/lwang114/RegulatoryNetworkInference">code</a></li>
       <li> Visualization of spoken units with diffusion map: <!--<a href="https:"></li>-->
@@ -61,3 +101,5 @@
     <a href="https://www.thetalkingmachines.com">Talking Machines</a>
   </ul>
 </section>
+</body>
+</html>
